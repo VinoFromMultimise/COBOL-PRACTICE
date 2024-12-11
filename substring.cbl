@@ -1,0 +1,31 @@
+IDENTIFICATION DIVISION.
+PROGRAM-ID. HELLO-WORLD.
+DATA DIVISION.
+WORKING-STORAGE SECTION.
+    01 ws-vars.
+        02  WS-FILE              OCCURS 5 times.
+                03  WS-FILE-REC     PIC X(10).
+    01 ws-misc.
+        02  WS-I                    PIC  9(02) COMP.
+        02 WS-J                     PIC 9(02) COMP.
+        02 ws-rec                   PIC X(10).
+        
+PROCEDURE DIVISION.
+DISPLAY 'Enter the values for the array of 5 records:'.
+MOVE "BINGOCBA999" TO WS-FILE-REC(1).
+MOVE "BINGOXXX999" TO WS-FILE-REC(2).
+MOVE "BINDFCBA999" TO WS-FILE-REC(3).
+MOVE "BINGOXXX999" TO WS-FILE-REC(4).
+MOVE "BINGOCBA000" TO WS-FILE-REC(5).
+
+PERFORM VARYING WS-I FROM 1 BY 1 UNTIL WS-I > 5
+    MOVE WS-FILE-REC(WS-I)  TO WS-REC
+    PERFORM VARYING WS-J FROM 1 BY 1 UNTIL WS-J > 80
+                IF WS-REC(WS-J:3) IS EQUAL TO 'CBA'
+                    DISPLAY 'CBA RECORD FOUND:' WS-REC
+                END-IF
+    END-PERFORM
+    MOVE SPACES TO WS-REC
+END-PERFORM.
+
+STOP RUN.
